@@ -44,6 +44,9 @@ public class calculatePaper {
 		System.out.print("Total Paper Required is " + paperRequired);
 		
 	}
+	
+	
+	
 
 	private static int calculateArea(int paperRequired, String box) {
 		// work out the paper required for this box.
