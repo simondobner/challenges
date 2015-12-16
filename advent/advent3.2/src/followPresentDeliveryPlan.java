@@ -106,7 +106,7 @@ public class followPresentDeliveryPlan {
 		}
 		//System.out.print( "adding robosanta house"  + "\n");
 		addHouse (santasLocation.getRoboSantasCurrentAddressPartOne(),
-					santasLocation.getSantasCurrentAddressPartTwo());			
+					santasLocation.getRoboSantasCurrentAddressPartTwo());			
 
 	}
 
