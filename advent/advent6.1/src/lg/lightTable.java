@@ -31,7 +31,7 @@ public class lightTable {
 		List<Integer> column = this.lightTable.get(1);
 		column.set(1, 1);
 		
-		// now turn on a range from top/left to bottom right	( the puzzle starts at 0,0 )	
+		// now change a range from top/left to bottom/right	( the puzzle starts at 0,0 )	
 		for (  row = toprow; row <= bottomrow; row++) {
 			column = this.lightTable.get(row);
 			for ( col = leftcolumn ; col <= rightcolumn; col++ ) {
@@ -44,7 +44,11 @@ public class lightTable {
 						column.set(col, 0);
 						break;
 					case "toggle":
-						column.set(col, 8);
+						if ( column.get(col)  == 1 ) {
+							column.set(col, 0);
+						} else {
+							column.set(col, 1);
+						}
 						break;	
 				}
 			}
