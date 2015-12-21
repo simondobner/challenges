@@ -26,14 +26,17 @@ public class LightGrid {
 //    	lights.adjustLights(5,5,8,8,"toggle");
 
         loadPlan(lights);
-        lights.displayEntireTable();
+        //lights.displayEntireTable();
+        lights.countTurnedOnLights();
 
 	}
 	
 	static void loadPlan(lightTable lights) {
 		
 		
-		String file = "/Users/sdobner/tmp/challenges/advent/advent6.1/src/lg/instructions.txt";
+		//String file = "/Users/sdobner/tmp/challenges/advent/advent6.1/src/lg/instructions.txt";
+		String file = "C:\\cygwin64\\home\\u25387\\challenges\\advent\\advent6.1\\src\\lg\\instructions.txt";
+		
 		String nextStep;//next step in the instructions
 		Integer topRow, topColumn, bottomRow, bottomColumn;
 		String instruction;
@@ -44,7 +47,7 @@ public class LightGrid {
 			// there is only one line in the file ( should really have error handling, but... )
 		    
 			while ((nextStep = br.readLine()) != null) {
-				System.out.println(nextStep);
+				//System.out.println(nextStep);
 				//get the actual instruction step
 				Pattern p_instruction = Pattern.compile("[a-z ]*"); // find all the chars and spaces up to the first non-lower char (number)
 				Matcher m = p_instruction.matcher(nextStep);
@@ -68,7 +71,6 @@ public class LightGrid {
 
 				//System.out.print(topRow + ":" +  topColumn+ ":" + bottomRow+ ":" + bottomColumn+ ":" + instruction);
 				lights.adjustLights(topRow, topColumn, bottomRow, bottomColumn, instruction);
-
 				
 			}
 				 

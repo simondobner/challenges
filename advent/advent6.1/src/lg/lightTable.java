@@ -26,10 +26,9 @@ public class lightTable {
 	//turn on, off and toggle method, state is the desired state, on, off or toggle
 	public void adjustLights(int toprow, int leftcolumn, int  bottomrow, int rightcolumn , String state){
 		int row, col;
-		
 		//this is how to turn on a single light ( 1,1)
 		List<Integer> column = this.lightTable.get(1);
-		column.set(1, 1);
+		//column.set(1, 1);
 		
 		// now change a range from top/left to bottom/right	( the puzzle starts at 0,0 )	
 		for (  row = toprow; row <= bottomrow; row++) {
@@ -37,13 +36,13 @@ public class lightTable {
 			for ( col = leftcolumn ; col <= rightcolumn; col++ ) {
 
 				switch ( state ) {
-					case  "on":
+					case  "turn on ":
 						column.set(col, 1);
 						break;
-					case "off":
+					case "turn off ":
 						column.set(col, 0);
 						break;
-					case "toggle":
+					case "toggle ":
 						if ( column.get(col)  == 1 ) {
 							column.set(col, 0);
 						} else {
@@ -60,7 +59,21 @@ public class lightTable {
 	
 	
 	
+	public void countTurnedOnLights() {
+		int row, col, lightCounter = 0;
+		List<Integer> column;
 	
+		for (  row = 0; row <= 999; row++) {
+			column = this.lightTable.get(row);
+			for ( col = 0 ; col <= 999; col++ ) {
+				if ( column.get(col)  == 1 ) {
+					lightCounter++;
+				}
+			}
+		}
+		
+		System.out.println("the number of turned on lights is : "  + lightCounter );
+	}
 	
 	
 
