@@ -3,23 +3,6 @@ package lg;
 import java.util.ArrayList;
 import java.util.List;
 
-
-/*
-You just finish implementing your winning light pattern when you realize you mistranslated Santa's message from Ancient Nordic Elvish.
-
-The light grid you bought actually has individual brightness controls; each light can have a brightness of zero or more. The lights all start at zero.
-
-The phrase turn on actually means that you should increase the brightness of those lights by 1.
-
-The phrase turn off actually means that you should decrease the brightness of those lights by 1, to a minimum of zero.
-
-The phrase toggle actually means that you should increase the brightness of those lights by 2.
-
-What is the total brightness of all lights combined after following Santa's instructions?
-
-*/
-	
-	
 public class lightTable {
 	// got the list of integer lists from here
 	// http://stackoverflow.com/questions/9068940/how-does-one-access-an-arraylist-of-arraylists-generics
@@ -42,29 +25,28 @@ public class lightTable {
 	
 	//turn on, off and toggle method, state is the desired state, on, off or toggle
 	public void adjustLights(int toprow, int leftcolumn, int  bottomrow, int rightcolumn , String state){
-		int row, col;
+		int row, cell;
 		//this is how to turn on a single light ( 1,1)
-		List<Integer> column = this.lightTable.get(1);
+		//List<Integer> column = this.lightTable.get(1);
 		//column.set(1, 1);
+		
+		List<Integer> column;
 		
 		// now change a range from top/left to bottom/right	( the puzzle starts at 0,0 )	
 		for (  row = toprow; row <= bottomrow; row++) {
 			column = this.lightTable.get(row);
-			for ( col = leftcolumn ; col <= rightcolumn; col++ ) {
+			for ( cell = leftcolumn ; cell <= rightcolumn; cell++ ) {
 
 				switch ( state ) {
 					case  "turn on ":
-						column.set(col, 1);
+						column.set(cell, ( column.get(cell) + 1) );
 						break;
 					case "turn off ":
-						column.set(col, 0);
+						if (column.get(cell) > 0 ) 
+							column.set(cell, ( column.get(cell) - 1) );
 						break;
 					case "toggle ":
-						if ( column.get(col)  == 1 ) {
-							column.set(col, 0);
-						} else {
-							column.set(col, 1);
-						}
+						column.set(cell, ( column.get(cell) + 2 ) );
 						break;	
 				}
 			}
@@ -77,15 +59,13 @@ public class lightTable {
 	
 	
 	public void countTurnedOnLights() {
-		int row, col, lightCounter = 0;
+		Integer row, col, lightCounter = 0;
 		List<Integer> column;
 	
 		for (  row = 0; row <= 999; row++) {
 			column = this.lightTable.get(row);
 			for ( col = 0 ; col <= 999; col++ ) {
-				if ( column.get(col)  == 1 ) {
-					lightCounter++;
-				}
+				lightCounter = lightCounter + column.get(col);
 			}
 		}
 		
