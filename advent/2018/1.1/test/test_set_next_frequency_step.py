@@ -51,6 +51,3 @@ def test_frequency_processor():
 
     assert freq_mon.duplicate_frequency == 14
     assert len(freq_mon.seen_frequencies) == 13
-
-
-

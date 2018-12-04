@@ -31,4 +31,3 @@ if __name__ == '__main__':
     while freq_mon.frequency_found is False:
         freq_mon.frequency_processor()
     print(f'Found the duplicate Frequency, it is: {freq_mon.duplicate_frequency}')
-
