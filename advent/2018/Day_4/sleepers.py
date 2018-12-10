@@ -1,4 +1,5 @@
 import os
+from collections import Counter
 
 
 class Sleepers:
@@ -9,6 +10,7 @@ class Sleepers:
         self.sleep_times = {}
         self.sleepiest_guard = None
         self.most_slept_minute: int = 0
+        self.sleepiest_guard_minute_combo: int = 0
 
     def load_sleeptime(self, file_name):
 
@@ -58,6 +60,15 @@ class Sleepers:
         self.most_slept_minute = max(self.sleep_times[self.sleepiest_guard],
                                      key=self.sleep_times[self.sleepiest_guard].count)
 
+    def get_guard_most_asleep_on_a_minute(self):
+        most_slept_minutes = {key: Counter(minutes_slept).most_common(1)[0]
+                              for key, minutes_slept in
+                              self.sleep_times.items() if len(minutes_slept) > 0}
+
+        sleepiest_guard_dets = sorted(most_slept_minutes.items(), key=lambda t: t[1][1])[-1]
+
+        self.sleepiest_guard_minute_combo = int(sleepiest_guard_dets[0]) * int(sleepiest_guard_dets[1][0])
+
 
 if __name__ == '__main__':
     guards = Sleepers()
@@ -65,7 +76,9 @@ if __name__ == '__main__':
     guards.create_sleep_time_log()
     guards.get_most_sleepy_guard()
     guards.get_most_slept_minute()
+    guards.get_guard_most_asleep_on_a_minute()
 
     print(f'guard = {guards.sleepiest_guard }')
     print(f'minute = { guards.most_slept_minute}')
-    print(f'result = {int(guards.sleepiest_guard) * int(guards.most_slept_minute)}')
+    print(f'part 1 result = {int(guards.sleepiest_guard) * int(guards.most_slept_minute)}')
+    print(f'part 2 result(sleepiest_guard_minute_combo) = {guards.sleepiest_guard_minute_combo}')

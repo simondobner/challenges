@@ -70,4 +70,12 @@ def test_most_slept_minute():
     guards.get_most_sleepy_guard()
     guards.get_most_slept_minute()
 
-    assert guards.most_slept_minute == 24
+
+def test_get_guard_most_asleep_on_a_minute():
+    guards = Sleepers()
+    guards.load_sleeptime(str(os.path.dirname(__file__)) + '/resources/test_input.txt')
+    guards.create_sleep_time_log()
+    guards.get_most_sleepy_guard()
+    guards.get_guard_most_asleep_on_a_minute()
+
+    assert guards.sleepiest_guard_minute_combo == 4455
