@@ -4,35 +4,31 @@ import os
 class PolymerReactor:
     def __init__(self, input_file: str = None):
 
+        self.polymerised_string: str = None
         if input_file is None:
             input_file = '/test/resources/test_input.txt'
 
         with open(str(os.path.dirname(__file__)) + input_file, 'r') as infile:
             for line in infile:
-                self.polymer = list(line)
+                self.polymer = line
+        print(f' len is {len(self.polymer)}')
 
-    def reactor(self):
+    def react_polymer(self):
 
-        poly_elements_reacted = False
-        for poly_position in range(1, len(self.polymer) - 1):
-            # print(f'c1 :{self.polymer[poly_position]} c2: {self.polymer[poly_position - 1].upper()}')
+        before_string = None
+        after_string = self.polymer
 
-            if self.polymer[poly_position] == self.polymer[poly_position - 1].upper() \
-                    or self.polymer[poly_position].upper() == self.polymer[poly_position - 1]:
-                # print(self.polymer[poly_position], self.polymer[poly_position - 1])
-                del self.polymer[poly_position - 1: poly_position + 1]
-                poly_elements_reacted = True
-                break
-        return poly_elements_reacted
+        while before_string != after_string:
+            before_string = after_string
+            for p in range(0, 26):
+                after_string = after_string.replace(chr(ord('a') + p) + chr(ord('A') + p), '')
+                after_string = after_string.replace(chr(ord('A') + p) + chr(ord('a') + p), '')
 
-    def process_polymer(self):
-        polymer_processing_incomplete = True
-
-        while polymer_processing_incomplete:
-            polymer_processing_incomplete = self.reactor()
+            self.polymerised_string = after_string
 
 
 if __name__ == '__main__':
     polymer = PolymerReactor('/input.txt')
-    polymer.process_polymer()
-    print(''.join(polymer.polymer))
+    polymer.react_polymer()
+    print(''.join(polymer.polymerised_string))
+    print(f'Units remaining is: {len(polymer.polymerised_string)}')
