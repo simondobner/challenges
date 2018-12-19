@@ -11,12 +11,12 @@ class PolymerReactor:
         with open(str(os.path.dirname(__file__)) + input_file, 'r') as infile:
             for line in infile:
                 self.polymer = line
-        print(f' len is {len(self.polymer)}')
 
-    def react_polymer(self):
+    @staticmethod
+    def primary_reactor(polymer):
 
-        before_string = None
-        after_string = self.polymer
+        before_string: str = None
+        after_string = polymer
 
         while before_string != after_string:
             before_string = after_string
@@ -24,11 +24,25 @@ class PolymerReactor:
                 after_string = after_string.replace(chr(ord('a') + p) + chr(ord('A') + p), '')
                 after_string = after_string.replace(chr(ord('A') + p) + chr(ord('a') + p), '')
 
-            self.polymerised_string = after_string
+            # before_string = after_string
+
+        return after_string
+
+    def secondary_reactor(self):
+
+        temp_poly = self.polymer
+        temp_poly_dict = {}
+        for n in range(0, 25):
+            temp_poly_dict[chr(ord("a") + n)] = len(self.primary_reactor(
+                temp_poly.replace(chr(ord("a") + n), '').replace(chr(ord('A') + n), '')))
+
+        return temp_poly_dict
+
+    def get_shortest_polymer(self):
+        length_dict = self.secondary_reactor()
+        return min(length_dict, key=length_dict.get)
 
 
 if __name__ == '__main__':
     polymer = PolymerReactor('/input.txt')
-    polymer.react_polymer()
-    print(''.join(polymer.polymerised_string))
-    print(f'Units remaining is: {len(polymer.polymerised_string)}')
+    print(f'Units remaining is: {len(polymer.primary_reactor(polymer.polymer))}')

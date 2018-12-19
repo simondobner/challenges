@@ -8,6 +8,12 @@ def test_init():
 
 def test_reactor():
     poly = PolymerReactor()
-    poly.react_polymer()
-    print(poly.polymerised_string)
-    assert poly.polymerised_string == 'dabCBAcaDA'
+    polymerised_string = poly.primary_reactor(poly.polymer)
+    assert polymerised_string == 'dabCBAcaDA'
+
+
+def test_improve_polymer():
+    poly = PolymerReactor()
+    poly.secondary_reactor()
+    print(poly.get_shortest_polymer())
+    assert poly.get_shortest_polymer() == 4
