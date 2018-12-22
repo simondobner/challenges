@@ -14,6 +14,6 @@ def test_reactor():
 
 def test_improve_polymer():
     poly = PolymerReactor()
-    poly.secondary_reactor()
+    poly.bad_unit_stripper()
     print(poly.get_shortest_polymer())
     assert poly.get_shortest_polymer() == 4

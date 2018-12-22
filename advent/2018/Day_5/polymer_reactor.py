@@ -13,10 +13,10 @@ class PolymerReactor:
                 self.polymer = line
 
     @staticmethod
-    def primary_reactor(polymer):
+    def primary_reactor(in_polymer):
 
         before_string: str = None
-        after_string = polymer
+        after_string = in_polymer
 
         while before_string != after_string:
             before_string = after_string
@@ -24,11 +24,9 @@ class PolymerReactor:
                 after_string = after_string.replace(chr(ord('a') + p) + chr(ord('A') + p), '')
                 after_string = after_string.replace(chr(ord('A') + p) + chr(ord('a') + p), '')
 
-            # before_string = after_string
-
         return after_string
 
-    def secondary_reactor(self):
+    def bad_unit_stripper(self):
 
         temp_poly = self.polymer
         temp_poly_dict = {}
@@ -39,10 +37,11 @@ class PolymerReactor:
         return temp_poly_dict
 
     def get_shortest_polymer(self):
-        length_dict = self.secondary_reactor()
-        return min(length_dict, key=length_dict.get)
+        length_dict = self.bad_unit_stripper()
+        return length_dict[min(length_dict, key=length_dict.get)]
 
 
 if __name__ == '__main__':
     polymer = PolymerReactor('/input.txt')
     print(f'Units remaining is: {len(polymer.primary_reactor(polymer.polymer))}')
+    print(f'Shortest clean polymer is {polymer.get_shortest_polymer()}')
